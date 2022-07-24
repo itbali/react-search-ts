@@ -1,0 +1,31 @@
+.background{
+  background-color: #ffffff;
+}
+.container {
+  margin: 0 auto;
+  max-width: 1440px;
+  padding-top: 225px;
+  width: 90vw;
+  min-height: calc(100vh - 40px);
+}
+.beers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-around;
+}
+.buttonsBlock {
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+  .paginationButton {
+    width: 80px;
+    margin: 10px;
+    border: 1px solid #000;
+    border-radius: 3px;
+    background-color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 0.5em 1.5em;
+  }
+}
