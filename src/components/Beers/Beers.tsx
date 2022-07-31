@@ -41,7 +41,7 @@ export const Beers = () => {
               <div className={s.beers}>
                 {beers.map(el => {
                   return (
-                    <React.Suspense fallback={<Spinner/>}>
+                    <React.Suspense key={el.id} fallback={<Spinner/>}>
                       <Beer key={el.id} beer={el}/>
                     </React.Suspense>
                   )

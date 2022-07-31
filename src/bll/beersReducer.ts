@@ -1,5 +1,4 @@
-import {beersAPI, BeerType, GetBeersQueryParams} from "../api/beersAPI";
-import {AppStateType, AppThunkType} from "./store";
+import {BeerType, GetBeersQueryParams} from "../api/beersAPI";
 
 //constants
 const SET_BEERS = "SET_BEERS"
@@ -27,6 +26,7 @@ export type BeersActionsType =
   ReturnType<typeof setTotalItems> |
   ReturnType<typeof setIsFirstSearch> |
   ReturnType<typeof setPageSearch> |
+  ReturnType<typeof getBeers> |
   ReturnType<typeof setIsLoading>
 
 //initState
@@ -90,29 +90,6 @@ export const setTotalItems = (totalItems: number) => {
 export const setError = (error: string) => {
   return {type: SET_ERROR, error} as const
 }
-
-
-//thunks
-export const getBeers = (clickedPage: number): AppThunkType => (dispatch, getState: () => AppStateType) => {
-  dispatch(setError(''))
-  dispatch(setPageSearch(clickedPage))
-  const {beer_name} = getState().beers.searchParams
-  const queryParams: GetBeersQueryParams = {
-    beer_name,
-    page: clickedPage
-  }
-  dispatch(setIsLoading(true));
-  beersAPI.getBeers(queryParams)
-    .then(data => {
-      dispatch(setBeers(data));
-      dispatch(setTotalItems(data.length));
-    })
-    .catch(err => {
-      dispatch(setError(err.response.data ? err.response.data.message : err.message));
-      setTimeout(() => setError(''), 10000)
-    })
-    .finally(() => {
-      dispatch(setIsLoading(false));
-      dispatch(setIsFirstSearch(false));
-    });
+export const getBeers = (clickedPage: number) => {
+  return {type: "GET_BEERS", clickedPage} as const
 }
